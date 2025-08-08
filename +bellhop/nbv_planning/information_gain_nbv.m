@@ -2,7 +2,7 @@ function data = information_gain_nbv(data, s, idx)
     % Information gain-based approach (efficient sampling)
     candidate_positions = generate_candidate_positions(data.x(idx), data.y(idx), data.z(idx), s);
     
-    candidate_positions = [-0.2 1 20; -0.2 -1 20; 1 0 20; -1 0 20; 1 1 20; -1 -1 20; 1 -1 20; -1 1 20];
+    %candidate_positions = [-0.2 1 20; -0.2 -1 20; 1 0 20; -1 0 20; 1 1 20; -1 -1 20; 1 -1 20; -1 1 20];
     %candidate_positions = [-0.2 1 20]
 
     best_info_gain = -inf;

@@ -189,17 +189,21 @@ function plot_estimation_results(errors, ssp_gp, true_ssp_grid, s)
         sprintf('Mean Rel. Error: %.2f%%', final_error.mean_relative_error * 100);
         sprintf('Spatial Correlation: %.4f', final_error.spatial_correlation);
         '';
-        if ~isnan(final_error.mean_uncertainty)
+    };
+    
+    % Conditionally add uncertainty statistics
+    if ~isnan(final_error.mean_uncertainty)
+        stats_text(end+1:end+3) = {
             sprintf('Mean Uncertainty: %.4f m/s', final_error.mean_uncertainty);
             sprintf('Coverage (1σ): %.1f%%', final_error.coverage_1sigma * 100);
             sprintf('Coverage (2σ): %.1f%%', final_error.coverage_2sigma * 100);
-        else
-            'Uncertainty: Not Available';
-        end
-    };
+        };
+    else
+        stats_text{end+1} = 'Uncertainty: Not Available';
+    end
     
     text(0.05, 0.95, stats_text, 'Units', 'normalized', 'VerticalAlignment', 'top', ...
-         'FontSize', 10, 'FontFamily', 'monospace');
+         'FontSize', 10, 'FontName', 'monospace');
     
     % Add overall title
     sgtitle(sprintf('SSP Estimation Results - %d Observations, Final RMSE: %.4f m/s', ...

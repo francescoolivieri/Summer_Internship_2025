@@ -1,6 +1,6 @@
-function tl = forward_model(map, pos, s)
+function tl = forward_model(ParameterMap_instance, pos, s)
 %
-% map describing the environment to simulate
+% ParameterMap class describing the environment to simulate
 % pos [N x 3] matrix (x, y, z)                     
 % s structure                                      
 
@@ -14,14 +14,16 @@ filename=sprintf('%07d', randi([0,9999999])); %'temporary';
 
 
 % Create envioreemnt file using the current parameters
-writeENV3D([filename '.env'], s, map);
+writeENV3D([filename '.env'], s, ParameterMap_instance.getMap());
 
 % Copy bty and ssp file
 if s.sim_use_bty_file
-    writeBTY3D([filename '.bty'], s.scene, map);
+    writeBTY3D([filename '.bty'], ParameterMap_instance.getMap());
 end
 
-if s.sim_use_ssp_file
+if s.sim_use_ssp_file && any(strcmp(ParameterMap_instance.getEstimationParameterNames(), 'ssp_grid'))
+    copyfile("ssp_estimate.ssp", [filename '.ssp'])
+else
     copyfile("ac_env_model.ssp", [filename '.ssp'])
 end
 
@@ -66,7 +68,7 @@ for i = 1:size(pos, 1)
     % Calculate range and depth for this position
     my_range = sqrt(pos(i, 1)^2 + pos(i, 2)^2);
     my_depth = pos(i, 3);
-    
+
     % Interpolate using the appropriate bearing slice
     tl_temp = interp2(rGrid, zGrid, double(abs(squeeze(pressure(bearing_idx, 1, :, :)))), my_range, my_depth, "linear");
     

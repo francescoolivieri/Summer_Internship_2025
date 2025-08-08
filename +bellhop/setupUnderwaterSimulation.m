@@ -29,13 +29,13 @@ function [data, s, sceneFigure] = setupUnderwaterSimulation(varargin)
     % Load the simulation settings
     s = get_sim_settings();
 
-    % Initialize parameter maps using the simplified approach
-    [data, s] = initializeParameterMaps(s, p.Results.Parameters);
-   
     % Create chosen scenario for the simulation
     [scene, sceneFigure] = scenarioBuilder(s);
     s.scene = scene;
     
+    % Initialize parameter maps using the simplified approach
+    [data, s] = initializeParameterMaps(s, p.Results.Parameters);
+   
     % Generate a .ssp file if needed
     if s.sim_use_ssp_file
         data.true_params.set("ssp_grid", generateSSP3D(s, scene));
@@ -47,7 +47,7 @@ function [data, s, sceneFigure] = setupUnderwaterSimulation(varargin)
     
     % Generate .bty file using true parameter values
     if s.sim_use_bty_file
-        writeBTY3D(s.bellhop_file_name + ".bty", scene, data.true_params.getMap());
+        writeBTY3D(s.bellhop_file_name + ".bty", data.true_params.getMap());
         figure
     end
     
@@ -55,9 +55,11 @@ function [data, s, sceneFigure] = setupUnderwaterSimulation(varargin)
     draw_true_env(s, scene);
 
     % Print polar shd
-    figure;
-    plotshdpol(s.bellhop_file_name + ".shd");
-    
+    if s.sim_accurate_3d
+        figure;
+        plotshdpol(s.bellhop_file_name + ".shd");
+    end
+
     % Initialize filter
     data = init_filter(data, s);
    
@@ -109,7 +111,13 @@ function [data, s] = initializeParameterMaps(s, param_config)
         if strcmp(param_config.names(1), 'ssp_grid')
             
             disp('Estimating ssp_grid. (Find better solution)')
-           
+            s.estimation_param_names = param_config.names;
+            s.mu_th = 0.;
+            s.Sigma_th = [0];
+
+            % Initialize estimated parameter map (copy from default)
+            data.estimated_params = ParameterMap(default_params, s.estimation_param_names);
+
         else
 
             % Validate parameter structure

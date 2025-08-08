@@ -50,10 +50,7 @@ function [mu_y, Sigma_yy, Sigma_xy] = unscented_transform(f, mu_x, Sigma_xx, s)
   
         map = ParameterMap(default_map, s.estimation_param_names);
         map.update(sigma_points(:,i), map.getEstimationParameterNames );
-        % map = createParameterMapFromArray(sigma_points(:,i), s);
-        % map = paddingSedimentParams(map, default_map);
-       
-        Y(:,i) = f(map.getMap());
+        Y(:,i) = f(map);
     end
     
     % Compute transformed mean

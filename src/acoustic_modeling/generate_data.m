@@ -7,6 +7,6 @@ idx=find(isfinite(data.x),1,'last');
 pos=[data.x(idx) data.y(idx) data.z(idx)];
 
 % Generate data
-data.m(idx) = forward_model( data.true_params.getMap() , pos, s) + s.sigma_tl_noise*randn;
+data.m(idx) = forward_model( data.true_params , pos, s) + s.sigma_tl_noise*randn;
 
 end

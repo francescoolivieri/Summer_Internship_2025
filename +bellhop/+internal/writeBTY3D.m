@@ -1,4 +1,4 @@
-function writeBTY3D(name_btyfil, scene, map)
+function writeBTY3D(name_btyfil, parameter_map)
 %createbtyfil_3D Creates a bathymetry file from a scene structure.
 %   This function extracts grid and depth data from a 'scene' struct
 %   and writes it to a bathymetry file using 'writebdry3d'.
@@ -8,7 +8,7 @@ function writeBTY3D(name_btyfil, scene, map)
 %
 % Inputs:
 %   bty_filename - The name for the output .bty file (e.g., 'MyBathy').
-%   scene        - A struct containing X, Y and floor(Z) attributes.
+%   parameter_map        - A ParameterMap class containing 'scene': X, Y and floor(Z) attributes.
 %   plot         - A boolean, true -> plots the bathymetry.
 
 global extra_output
@@ -17,6 +17,7 @@ interp_type = 'R';
 
 % Create Bathy structure
 
+scene = parameter_map('scene');
 original_X = scene.X(1, :);
 original_Y = scene.Y(:, 1)';
 original_depth = scene.floor;
@@ -28,7 +29,7 @@ try
     nx_original = length( original_X );
     ny_original = length( original_Y );
 
-    num_sediment_types = size(map('sound_speed_sediment'), 1);
+    num_sediment_types = size(parameter_map('sound_speed_sediment'), 1);
 
     if num_sediment_types > 1000 % NOT ACCURATE
         
@@ -167,9 +168,9 @@ try
     end
 
     fprintf( fid, '%d \n', num_sediment_types);
-    sp_arr = map('sound_speed_sediment');
-    rho_arr = map('density_sediment');
-    att_arr = map('attenuation_sediment');
+    sp_arr = parameter_map('sound_speed_sediment');
+    rho_arr = parameter_map('density_sediment');
+    att_arr = parameter_map('attenuation_sediment');
     for i = 1:num_sediment_types
         
         fprintf( fid, '%f 0 %f %f 0 \n',  sp_arr(i), rho_arr(i), att_arr(i));

@@ -47,7 +47,6 @@ function writeSSP3D(filename, x, y, z, c)
     end
 
     fclose(fid);
-    fprintf('Wrote SSP file.\n');
 end
 
 

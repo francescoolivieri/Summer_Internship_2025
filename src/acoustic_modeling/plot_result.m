@@ -34,10 +34,10 @@ for ii=1:numel(s.mu_th)
     grid minor;
 end
 
-% Create 3D grid for uncertainty visualization
-x_values = s.x_min:0.3:s.x_max;
-y_values = s.y_min:0.3:s.y_max;
-z_values = s.z_min+5:5:s.OceanDepth-5;
+% % Create 3D grid for uncertainty visualization
+% x_values = s.x_min:0.3:s.x_max;
+% y_values = s.y_min:0.3:s.y_max;
+% z_values = s.z_min+5:5:s.OceanDepth-5;
 
 % % OPTION 1: Compute only 2D slice (+ EFFICIENT)
 % % Create a 2D slice at a specific y-value
@@ -180,7 +180,7 @@ scatter3(data.x(1:idx), data.y(1:idx), data.z(1:idx), 50, 'b', 'filled');
 % Highlight current position
 scatter3(data.x(idx), data.y(idx), data.z(idx), 100, 'r', 'filled', 'MarkerEdgeColor', 'k');
 % Highlight source position
-scatter3(s.sim_sender_x, s.sim_sender_y, s.sim_sender_depth, 100, 'green', 'filled', 'MarkerEdgeColor', 'k');
+scatter3(s.sim_source_x, s.sim_source_y, s.sim_source_depth, 100, 'green', 'filled', 'MarkerEdgeColor', 'k');
 
 
 % Set axis properties

@@ -21,7 +21,7 @@ function tree = traverseTreeMemoized(tree, mu_parent, Sigma_parent, x_parent, y_
                     Sigma_updated = cached_result.Sigma;
                 else
                     % Compute and cache new result
-                    [~, Sigma_updated] = step_ukf_filter(nan, @(th)forward_model(th, [x_updated y_updated z_updated], s), mu_parent, Sigma_parent, s.Sigma_rr);
+                    [~, Sigma_updated] = step_ukf_filter(nan, @(ParameterMap)forward_model(ParameterMap, [x_updated y_updated z_updated], s), mu_parent, Sigma_parent, s.Sigma_rr, s);
                     cached_result.Sigma = Sigma_updated;
                     cached_result.position = [x_updated, y_updated, z_updated];
                     position_cache(cache_key) = cached_result;

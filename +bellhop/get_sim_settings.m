@@ -18,10 +18,11 @@ s.Ocean_z_step = s.OceanDepth * 0.25; % Empirical rule: shd plot scattered with 
 %% Bellhop simulation settings
 s.sim_frequency = 1000.;
 s.sim_max_depth = 80.0;
-s.sim_sender_x = -0.2;
-s.sim_sender_y = 0.0;
-s.sim_sender_depth = 10.0;
-s.sim_range = 1.5;
+s.sim_source_x = -0.2;
+s.sim_source_y = 0.0;
+s.sim_source_depth = 10.0;
+s.sim_range = 1.5;          %% CHECK COMPLIANT WITH SCENARIO
+s.sim_num_bearing = 5;    % more accurate -> 361 but heavier simulation
 
 % Extensions
 s.sim_use_ssp_file = true;
@@ -36,6 +37,7 @@ s.sim_param_sp_sediment = 1600;
 s.sim_param_density_sediment = 1.5;
 s.sim_param_attenuation_sediment = 0.5;
 
+s.verbose = true;
 
 
 %% External File References
@@ -57,34 +59,27 @@ s.y_max=1.5;
 
 
 % Sensor management
-s.sm=true;                          % Sensor management on/off
-s.nbv_method='information_gain';    % methods: tree_memoized, rrt_star, bayesian_opt, information_gain, multi_objective
+s.sm=false;                            % Sensor management on/off
+s.nbv_method='tree_memoized';       % methods: tree_memoized, rrt_star, bayesian_opt, information_gain, multi_objective
 
 
 %% Measurements position settings
-s.d_z=5;                            % Step distance depth [m]
-s.d_x=0.1;                           % Step distance range [km]
-s.d_y=0.1;                           % Step distance range [km]
+s.d_z = 20;                            % Step distance depth [m]
+s.d_x = 0.5;                           % Step distance range [km]
+s.d_y = 0.5;                           % Step distance range [km]
 
-s.z_start=20;                       % Start depth [m]
-s.x_start=0.500;                       % Start x [km]
-s.y_start=0.500;                       % Start y [km]
+s.z_start = 20;                        % Start depth [m]
+s.x_start = 0.500;                     % Start x [km]
+s.y_start = 0.500;                     % Start y [km]
 
-s.depth=2;                          % Depth of planing tree, i.e., how many steps ahead should we plan. 
-
-
-s.N=10;                             % Total number of measurements
-s.sigma_tl_noise=1;                 % Variance of the measurement noise [dB]
+s.depth=2;                             % Depth of planing tree, i.e., how many steps ahead should we plan. 
 
 
-s.Sigma_rr=1^2;                     % Filter assumed measurement noise variance [dB^2]
+s.N=20;                                % Total number of measurements
+s.sigma_tl_noise=1;                    % Variance of the measurement noise [dB]
 
 
-
-
-
-
-
+s.Sigma_rr=1^2;                        % Filter assumed measurement noise variance [dB^2]
 
 
 

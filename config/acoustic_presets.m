@@ -27,7 +27,7 @@ function s = acoustic_presets(preset_name)
             % Environment
             s.OceanDepth = 30;           % Typical coastal depth
             s.sim_frequency = 12000;     % 12kHz communication frequency
-            s.sim_sender_depth = 5;      % Near-surface transmitter
+            s.sim_source_depth = 5;      % Near-surface transmitter
             
             % Bottom parameters (sandy coastal environment)
             s.mu_th = [1650; 1.6];       % Sand/shell bottom
@@ -49,7 +49,7 @@ function s = acoustic_presets(preset_name)
             % Environment  
             s.OceanDepth = 4000;         % Deep ocean
             s.sim_frequency = 1000;      % 1kHz sonar frequency
-            s.sim_sender_depth = 100;    % Submarine depth
+            s.sim_source_depth = 100;    % Submarine depth
             
             % Bottom parameters (abyssal sediments)
             s.mu_th = [1500; 1.2];       % Soft sediment
@@ -72,7 +72,7 @@ function s = acoustic_presets(preset_name)
             % Environment
             s.OceanDepth = 50;           % Continental shelf
             s.sim_frequency = 3500;      % 3.5kHz sub-bottom profiler
-            s.sim_sender_depth = 2;      % Surface vessel
+            s.sim_source_depth = 2;      % Surface vessel
             
             % Bottom parameters (variable geology)
             s.mu_th = [1600; 1.4];       % Mixed sediment/rock
@@ -94,7 +94,7 @@ function s = acoustic_presets(preset_name)
             % Environment
             s.OceanDepth = 20;           % Shallow tactical waters
             s.sim_frequency = 50000;     % 50kHz high-frequency sonar
-            s.sim_sender_depth = 8;      % MCM vessel sonar
+            s.sim_source_depth = 8;      % MCM vessel sonar
             
             % Bottom parameters (sandy/rocky)
             s.mu_th = [1700; 1.8];       % Hard bottom for mine contrast
@@ -116,7 +116,7 @@ function s = acoustic_presets(preset_name)
             % Environment
             s.OceanDepth = 200;          % Marine sanctuary depth
             s.sim_frequency = 120000;    % 120kHz biological acoustic
-            s.sim_sender_depth = 10;     % Research vessel
+            s.sim_source_depth = 10;     % Research vessel
             
             % Bottom parameters (biological focus)
             s.mu_th = [1580; 1.3];       % Organic-rich sediments
@@ -138,7 +138,7 @@ function s = acoustic_presets(preset_name)
             % Environment
             s.OceanDepth = 100;          % Mid-depth continental shelf
             s.sim_frequency = 5000;      % 5kHz mapping frequency
-            s.sim_sender_depth = 3;      % AUV/ROV platform
+            s.sim_source_depth = 3;      % AUV/ROV platform
             
             % Bottom parameters (geological mapping)
             s.mu_th = [1620; 1.5];       % Typical shelf sediments

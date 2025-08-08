@@ -27,6 +27,8 @@ classdef ParameterMap < handle
                 % Constructor with default values (defined in sim_settings)
                 obj.param_map = containers.Map();
                 
+                obj.param_map('source_frequency') = initial_params.sim_frequency;
+
                 % Acoustic parameters
                 obj.param_map('sound_speed_water') = initial_params.sim_param_sp_water; % m/s
                 obj.param_map('sound_speed_sediment') = initial_params.sim_param_sp_sediment; % m/s
@@ -38,9 +40,12 @@ classdef ParameterMap < handle
                                                 length(0:initial_params.Ocean_z_step:initial_params.sim_max_depth));              % dB/λ
                 
                 % Geometric parameters
-                obj.param_map('water_depth') = initial_params.sim_max_depth; % m
-                obj.param_map('source_depth') = initial_params.sim_sender_depth; % m
-                obj.param_map('range') = initial_params.sim_range; % m
+                obj.param_map('water_depth') = initial_params.sim_max_depth; % m   % NOT TESTED
+                obj.param_map('source_x') = initial_params.sim_source_x; % m
+                obj.param_map('source_y') = initial_params.sim_source_y; % m
+                obj.param_map('source_depth') = initial_params.sim_source_depth; % m
+
+                obj.param_map('scene') = initial_params.scene; % m
     
                 obj.estimation_param_names = {};
             
@@ -149,7 +154,7 @@ classdef ParameterMap < handle
             obj.param_map = paddingSedimentParams(obj.param_map, default_param_map);
         end
         
-        function display(obj, title_str)
+        function print(obj, title_str)
             % Display parameters
             if nargin < 2
                 title_str = 'Parameters';
@@ -188,6 +193,12 @@ classdef ParameterMap < handle
             % Get estimation parameter names
             names = obj.estimation_param_names;
         end
+
+        % function printEstimationParameters()
+        % 
+        % 
+        % end
+
     end
     
     methods (Access = private)
